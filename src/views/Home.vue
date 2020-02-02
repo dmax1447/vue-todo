@@ -1,18 +1,47 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <controls></controls>
+    <task-list :taskList="taskListMock"></task-list>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Controls from "@/components/Controls.vue";
+import TaskList from "@/components/TaskList.vue";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
-  }
+    Controls,
+    TaskList
+  },
+  data: () => ({
+    taskListMock: [
+      {
+        description: "купить молока",
+        start: "2019-05-15",
+        duration: 10,
+        state: "active",
+        complited: false,
+        priority: true
+      },
+      {
+        description: "почистить картошку",
+        start: "2019-06-02",
+        duration: 3,
+        state: "finished",
+        complited: true,
+        priority: true
+      },
+      {
+        description: "накормить кота",
+        start: "2019-06-29",
+        duration: 5,
+        state: "delayed",
+        complited: false,
+        priority: false
+      }
+    ]
+  })
 };
 </script>
