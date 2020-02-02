@@ -1,4 +1,6 @@
 # vue-todo-app
+This is sample Todo app
+Project hosted at: https://vue-todo-app-8f8f3.firebaseapp.com/
 
 ## Project setup
 ```
@@ -20,5 +22,7 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Deploy to firebase hosting
+```
+npm run deploy
+```
