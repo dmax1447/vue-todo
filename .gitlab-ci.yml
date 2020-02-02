@@ -1,0 +1,16 @@
+image: node:11
+
+cache:
+  paths:
+    - node_modules/
+
+pages:
+  only:
+  - /pages/
+  artifacts:
+    paths:
+    - public
+  script:
+  - npm install
+  - BUILD_OUTPUT=public npm run build
+  - mv dist public
