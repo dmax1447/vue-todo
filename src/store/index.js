@@ -5,41 +5,49 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    taskListMock: [
-      {
-        id: "0001",
-        description: "купить молока ",
-        start: "2019-05-15",
-        duration: 10,
-        state: "active",
-        complited: false,
-        priority: true
-      },
-      {
-        id: "0002",
-        description: "почистить картошку",
-        start: "2019-06-02",
-        duration: 3,
-        state: "finished",
-        complited: true,
-        priority: true
-      },
-      {
-        id: "0003",
-        description: "накормить кота",
-        start: "2019-06-29",
-        duration: 5,
-        state: "delayed",
-        complited: false,
-        priority: false
-      }
-    ]
+    taskList: []
   },
   getters: {
-    getTaskList: state => state.taskListMock,
-    getTask: state => id => state.taskListMock.find(task => task.id === id)
+    getTaskList: state => state.taskList,
+    getTask: state => id => state.taskList.find(task => task.id === id)
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setTaskList(state, list) {
+      state.taskList = list;
+    },
+    addTask(state, task) {
+      state.taskList.push(task);
+    },
+    deleteTask(state, id) {
+      const idx = state.taskList.find(task => task.id === id);
+      state.taskList.splice(idx, 1);
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    },
+    updateTask(state, task) {
+      const idx = state.taskList.find(item => item.id === task.id);
+      state.taskList.splice(idx, 1, task);
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    }
+  },
+  actions: {
+    handleTaskSubmit({ commit }, task) {
+      commit("addTask", task);
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    },
+    handleTaskUpdate({ commit }, task) {
+      commit("updateTask", task);
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    },
+    loadApp({ commit }) {
+      const storedTaskList = JSON.parse(
+        localStorage.getItem("taskList") || "[]"
+      );
+      commit("setTaskList", storedTaskList);
+    },
+    handleDeleteTask({ commit }, id) {
+      commit("deleteTask", id);
+      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    }
+  },
   modules: {}
 });

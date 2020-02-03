@@ -17,6 +17,7 @@ export default {
     TaskList
   },
   mounted() {
+    this.$store.dispatch("loadApp");
     this.taskList = this.getTaskList;
   },
   data: () => ({

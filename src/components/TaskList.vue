@@ -2,28 +2,40 @@
   <div>
     <table class="table mt-2">
       <thead class="thead-light">
-        <tr>
+        <tr class="text-left">
+          <th>title</th>
+          <th>description</th>
+          <th>dueDate</th>
           <th>complited</th>
-          <th>priority</th>
-          <th class="text-left">description</th>
-          <th>state</th>
-          <th>start</th>
-          <th>duration</th>
+          <th class="text-left">tags</th>
+          <th></th>
         </tr>
       </thead>
       <tr
         v-for="(task, index) in taskList"
         :key="index"
         :class="task.complited ? 'task-complited' : ''"
+        class="text-left"
       >
+        <td>{{ task.title }}</td>
+        <td>
+          <p class="task-descriprion-text">{{ task.description }}</p>
+        </td>
+        <td>{{ new Date(task.dueDate).toLocaleDateString() }}</td>
         <td>{{ task.complited }}</td>
-        <td>{{ task.priority }}</td>
-        <router-link :to="{ name: 'task', params: { id: task.id } }">
-          <td class="text-left">{{ task.description }}</td>
-        </router-link>
-        <td>{{ task.state }}</td>
-        <td>{{ task.start }}</td>
-        <td>{{ task.duration }}</td>
+        <td>{{ task.tags.join(", ") }}</td>
+        <td>
+          <router-link
+            :to="`task/${task.id}`"
+            tag="button"
+            class="btn btn-sm btn-primary mr-2"
+          >
+            Open</router-link
+          >
+          <button class="btn btn-sm btn-danger" @click="deleteTask(task.id)">
+            Delete
+          </button>
+        </td>
       </tr>
     </table>
   </div>
@@ -32,8 +44,20 @@
 <script>
 export default {
   name: "TaskList",
-  props: ["taskList"]
+  props: ["taskList"],
+  methods: {
+    deleteTask(id) {
+      this.$store.dispatch("handleDeleteTask", id);
+    }
+  }
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.task-descriprion-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 400px;
+}
+</style>

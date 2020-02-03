@@ -1,20 +1,9 @@
 <template>
   <div class="controls">
     <div class="controls__wrapper">
-      <button
-        type="button"
-        class="btn btn-primary btn-sm mr-1"
-        @click="addTask"
-      >
-        Добавить задачу
-      </button>
-      <button
-        type="button"
-        class="btn btn-warning btn-sm mr-1"
-        @click="clearFinished"
-      >
-        Очистить завершенные
-      </button>
+      <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
+        >New task
+      </router-link>
     </div>
   </div>
 </template>
