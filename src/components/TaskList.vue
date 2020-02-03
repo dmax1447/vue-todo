@@ -12,16 +12,18 @@
         </tr>
       </thead>
       <tr
-        v-for="(taskItem, index) in taskList"
+        v-for="(task, index) in taskList"
         :key="index"
-        :class="taskItem.complited ? 'task-complited' : ''"
+        :class="task.complited ? 'task-complited' : ''"
       >
-        <td>{{ taskItem.complited }}</td>
-        <td>{{ taskItem.priority }}</td>
-        <td class="text-left">{{ taskItem.description }}</td>
-        <td>{{ taskItem.state }}</td>
-        <td>{{ taskItem.start }}</td>
-        <td>{{ taskItem.duration }}</td>
+        <td>{{ task.complited }}</td>
+        <td>{{ task.priority }}</td>
+        <router-link :to="{ name: 'task', params: { id: task.id } }">
+          <td class="text-left">{{ task.description }}</td>
+        </router-link>
+        <td>{{ task.state }}</td>
+        <td>{{ task.start }}</td>
+        <td>{{ task.duration }}</td>
       </tr>
     </table>
   </div>
