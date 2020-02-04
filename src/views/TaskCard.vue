@@ -26,7 +26,7 @@
           :value="task.dueDate"
           @change="handleDate"
           type="date"
-          class="form-control w-25"
+          class="form-control"
           id="date"
         />
       </div>
