@@ -17,6 +17,7 @@
         <option value="all" selected>All</option>
         <option value="active">Active</option>
         <option value="completed">Completed</option>
+        <option value="outdated">Outdated</option>
       </select>
     </div>
     <table class="table mt-2" v-if="getTaskList">
@@ -35,7 +36,8 @@
         :key="index"
         class="text-left"
         :class="{
-          'task-complited': task.complited
+          'task-complited': task.complited,
+          'task-outdated': new Date(task.dueDate).valueOf() < Date.now()
         }"
       >
         <td>
@@ -73,19 +75,17 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "TaskList",
-  mounted() {
-    this.taskList = this.getTaskList;
-  },
+
   data: () => ({
-    taskList: [],
-    taskStatusFilter: "all"
+    taskStatusFilter: "all",
+    currentDate: null
   }),
   computed: {
     ...mapGetters(["getTaskList"]),
     taskListFiltered() {
       return this.getTaskList.filter(item => {
-        if (this.taskStatusFilter === "all") {
-          return true;
+        if (this.taskStatusFilter === "outdated") {
+          return new Date(item.dueDate).valueOf() < Date.now();
         }
 
         if (this.taskStatusFilter === "completed") {
@@ -95,6 +95,7 @@ export default {
         if (this.taskStatusFilter === "active") {
           return !item.complited;
         }
+        return true;
       });
     }
   },
