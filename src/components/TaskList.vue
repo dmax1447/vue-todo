@@ -9,14 +9,17 @@
           >Filter status:</label
         >
       </div>
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">Active</option>
-        <option value="2">Outdated</option>
-        <option value="3">Complited</option>
+      <select
+        class="custom-select"
+        id="inputGroupSelect01"
+        v-model="taskStatusFilter"
+      >
+        <option value="all" selected>All</option>
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
       </select>
     </div>
-    <table class="table mt-2">
+    <table class="table mt-2" v-if="getTaskList">
       <thead class="thead-light">
         <tr class="text-left">
           <th>v</th>
@@ -28,10 +31,12 @@
         </tr>
       </thead>
       <tr
-        v-for="(task, index) in taskList"
+        v-for="(task, index) in taskListFiltered"
         :key="index"
-        :class="task.complited ? 'task-complited' : ''"
         class="text-left"
+        :class="{
+          'task-complited': task.complited
+        }"
       >
         <td>
           <input
@@ -72,10 +77,26 @@ export default {
     this.taskList = this.getTaskList;
   },
   data: () => ({
-    taskList: []
+    taskList: [],
+    taskStatusFilter: "all"
   }),
   computed: {
-    ...mapGetters(["getTaskList"])
+    ...mapGetters(["getTaskList"]),
+    taskListFiltered() {
+      return this.getTaskList.filter(item => {
+        if (this.taskStatusFilter === "all") {
+          return true;
+        }
+
+        if (this.taskStatusFilter === "completed") {
+          return item.complited;
+        }
+
+        if (this.taskStatusFilter === "active") {
+          return !item.complited;
+        }
+      });
+    }
   },
   methods: {
     deleteTask(id) {
@@ -99,5 +120,9 @@ export default {
 .task-complited {
   text-decoration: line-through;
   color: gray;
+}
+
+.task-outdated {
+  color: red;
 }
 </style>
