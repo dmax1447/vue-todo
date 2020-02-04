@@ -27,7 +27,7 @@
           type="date"
           class="form-control"
           id="date"
-          :value="dueDateFormatted"
+          :value="task.dueDate"
           required
         />
       </div>
@@ -56,16 +56,13 @@ export default {
       id: new Date().valueOf(),
       title: null,
       description: null,
-      dueDate: null,
+      dueDate: moment()
+        .add(1, "day")
+        .format("YYYY-MM-DD"),
       tags: [],
       complited: false
     }
   }),
-  computed: {
-    dueDateFormatted() {
-      return moment().add(1, "day").format("YYYY-MM-DD");
-    }
-  },
   methods: {
     handleDate(evt) {
       this.task.dueDate = new Date(evt.target.value).toISOString();
