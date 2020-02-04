@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "firebase deploy"
+    "update-public": "rm public/* -r && copy dist public",
+    "deploy": "npm run build && npm run update-public && firebase deploy"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",

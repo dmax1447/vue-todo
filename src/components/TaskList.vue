@@ -7,7 +7,6 @@
           <th>title</th>
           <th>description</th>
           <th>dueDate</th>
-          <th>complited</th>
           <th class="text-left">tags</th>
           <th></th>
         </tr>
@@ -30,7 +29,6 @@
           <p class="task-descriprion-text">{{ task.description }}</p>
         </td>
         <td>{{ new Date(task.dueDate).toLocaleDateString() }}</td>
-        <td>{{ task.complited }}</td>
         <td>{{ task.tags.join(", ") }}</td>
         <td>
           <router-link

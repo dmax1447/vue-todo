@@ -19,11 +19,11 @@ export default new Vuex.Store({
       state.taskList.push(task);
     },
     deleteTask(state, id) {
-      const idx = state.taskList.find(task => task.id === id);
+      const idx = state.taskList.findIndex(task => task.id === id);
       state.taskList.splice(idx, 1);
     },
     updateTask(state, task) {
-      const idx = state.taskList.find(item => item.id === task.id);
+      const idx = state.taskList.findIndex(item => item.id === task.id);
       state.taskList.splice(idx, 1, task);
     },
     changeStatus(state, id) {
