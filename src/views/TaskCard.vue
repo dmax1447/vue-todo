@@ -23,7 +23,7 @@
       <div class="form-group">
         <label for="date">Due date:</label>
         <input
-          :value="task.dueDate"
+          :value="dueDateFormatted"
           @change="handleDate"
           type="date"
           class="form-control"
@@ -56,14 +56,16 @@ import moment from "moment";
 export default {
   mounted() {
     this.task = this.getTask(parseInt(this.$route.params.id, 10));
-    this.task.dueDate = moment(this.task.dueDate).format("YYYY-MM-DD");
   },
   data: () => ({
     task: null,
     id: ""
   }),
   computed: {
-    ...mapGetters(["getTask"])
+    ...mapGetters(["getTask"]),
+    dueDateFormatted() {
+      return moment(this.task.dueDate).format("YYYY-MM-DD");
+    }
   },
   methods: {
     handleDate(evt) {

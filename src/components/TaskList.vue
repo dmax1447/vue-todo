@@ -77,8 +77,7 @@ export default {
   name: "TaskList",
 
   data: () => ({
-    taskStatusFilter: "all",
-    currentDate: null
+    taskStatusFilter: "all"
   }),
   computed: {
     ...mapGetters(["getTaskList"]),

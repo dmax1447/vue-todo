@@ -27,6 +27,7 @@
           type="date"
           class="form-control"
           id="date"
+          :value="dueDateFormatted"
           required
         />
       </div>
@@ -46,6 +47,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "NewTask",
   data: () => ({
@@ -58,6 +61,11 @@ export default {
       complited: false
     }
   }),
+  computed: {
+    dueDateFormatted() {
+      return moment().add(1, "day").format("YYYY-MM-DD");
+    }
+  },
   methods: {
     handleDate(evt) {
       this.task.dueDate = new Date(evt.target.value).toISOString();
