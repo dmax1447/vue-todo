@@ -1,5 +1,19 @@
 <template>
   <div>
+    <div class="input-group mb-3">
+      <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
+        >New task
+      </router-link>
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Filter status:</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">Active</option>
+        <option value="2">Outdated</option>
+        <option value="3">Complited</option>
+      </select>
+    </div>
     <table class="table mt-2">
       <thead class="thead-light">
         <tr class="text-left">
@@ -48,9 +62,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "TaskList",
-  props: ["taskList"],
+  mounted() {
+    this.taskList = this.getTaskList;
+  },
+  data: () => ({
+    taskList: []
+  }),
+  computed: {
+    ...mapGetters(["getTaskList"])
+  },
   methods: {
     deleteTask(id) {
       this.$store.dispatch("handleDeleteTask", id);
