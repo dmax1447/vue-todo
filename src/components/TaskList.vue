@@ -3,6 +3,7 @@
     <table class="table mt-2">
       <thead class="thead-light">
         <tr class="text-left">
+          <th>v</th>
           <th>title</th>
           <th>description</th>
           <th>dueDate</th>
@@ -17,6 +18,13 @@
         :class="task.complited ? 'task-complited' : ''"
         class="text-left"
       >
+        <td>
+          <input
+            type="checkbox"
+            :checked="task.complited"
+            @change="changeTaskStatus(task.id)"
+          />
+        </td>
         <td>{{ task.title }}</td>
         <td>
           <p class="task-descriprion-text">{{ task.description }}</p>
@@ -48,6 +56,9 @@ export default {
   methods: {
     deleteTask(id) {
       this.$store.dispatch("handleDeleteTask", id);
+    },
+    changeTaskStatus(id) {
+      this.$store.dispatch("changeTaskStatus", id);
     }
   }
 };
@@ -59,5 +70,10 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 400px;
+}
+
+.task-complited {
+  text-decoration: line-through;
+  color: gray;
 }
 </style>

@@ -41,7 +41,7 @@
           required
         />
       </div>
-      <button type="submit" class="btn btn-primary btn-sm">Update task</button>
+      <button type="submit" class="btn btn-primary btn-sm">Update</button>
     </form>
   </div>
   <div v-else>
@@ -73,7 +73,6 @@ export default {
       this.task.tags = evt.target.value.split(" ");
     },
     handleSubmit() {
-      console.log(this.task);
       this.$store.dispatch("handleTaskUpdate", this.task);
       this.$router.push("/");
     }
