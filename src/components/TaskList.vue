@@ -5,7 +5,9 @@
         >New task
       </router-link>
       <div class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01">Filter status:</label>
+        <label class="input-group-text" for="inputGroupSelect01"
+          >Filter status:</label
+        >
       </div>
       <select class="custom-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
