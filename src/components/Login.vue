@@ -41,6 +41,11 @@ export default {
   methods: {
     submit() {
       console.log(`submit!`);
+      this.$store.dispatch("setUser", {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      });
       this.$emit("closeLoginForm");
     }
   }

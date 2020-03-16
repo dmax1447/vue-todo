@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    taskList: []
+    taskList: [],
+    user: {}
   },
   getters: {
     getTaskList: state => state.taskList,
@@ -29,6 +30,10 @@ export default new Vuex.Store({
     changeStatus(state, id) {
       const idx = state.taskList.findIndex(task => task.id === id);
       state.taskList[idx].complited = !state.taskList[idx].complited;
+    },
+    setUser(state, { email, password }) {
+      state.user.email = email;
+      state.user.password = password;
     }
   },
   actions: {
@@ -53,6 +58,9 @@ export default new Vuex.Store({
     changeTaskStatus({ commit }, id) {
       commit("changeStatus", id);
       localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+    },
+    setUser({ commit }, userData) {
+      commit("setUser", userData);
     }
   },
   modules: {}
