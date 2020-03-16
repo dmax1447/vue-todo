@@ -1,10 +1,13 @@
 <template>
   <div>
-    <login-form
-      class="p-2 shadow mb-5 bg-white rounded"
+    <user-registration-popup
+      v-if="isRegistrationFormShown"
+      @closeForm="isRegistrationFormShown = false"
+    />
+    <user-login-popup
       v-if="isLoginFormShown"
-      @closeLoginForm="isLoginFormShown = false"
-    ></login-form>
+      @closeForm="isRegistrationFormShown = false"
+    />
     <div class="input-group mb-3">
       <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
         >New task
@@ -24,12 +27,9 @@
         <option value="completed">Completed</option>
         <option value="outdated">Outdated</option>
       </select>
-      <button
-        class="btn btn-sm btn-primary"
-        @click="isLoginFormShown = !isLoginFormShown"
-      >
-        Login
-      </button>
+      <button class="btn btn-sm btn-primary ml-2" @click="isRegistrationFormShown = !isRegistrationFormShown">Register</button>
+      <button class="btn btn-sm btn-primary ml-2" @click="isLoginFormShown = !isLoginFormShown">Login</button>
+
     </div>
     <table class="table mt-2" v-if="getTaskList">
       <thead class="thead-light">
@@ -83,16 +83,19 @@
 
 <script>
 import { mapGetters } from "vuex";
-import LoginForm from "./Login";
+import userRegistrationPopup from "./userRegistrationPopup";
+import userLoginPopup from "./userLoginPopup";
 
 export default {
   name: "TaskList",
   components: {
-    LoginForm
+    userRegistrationPopup,
+    userLoginPopup
   },
   data: () => ({
     taskStatusFilter: "all",
-    isLoginFormShown: false
+    isLoginFormShown: false,
+    isRegistrationFormShown: false
   }),
   computed: {
     ...mapGetters(["getTaskList"]),

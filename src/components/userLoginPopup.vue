@@ -1,6 +1,10 @@
 <template>
-  <form class="login-form" @submit.prevent="submit">
+  <form
+    class="login-form p-3 shadow mb-5 bg-white rounded"
+    @submit.prevent="loginUser"
+  >
     <div class="form-group">
+      <h3 class="mb-3">User login form</h3>
       <label for="exampleInputEmail1">Email address</label>
       <input
         v-model="email"
@@ -9,9 +13,6 @@
         id="exampleInputEmail1"
         aria-describedby="emailHelp"
       />
-      <small id="emailHelp" class="form-text text-muted"
-        >We'll never share your email with anyone else.</small
-      >
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Password</label>
@@ -22,9 +23,6 @@
         id="exampleInputPassword1"
         minlength="6"
       />
-      <small id="emailHelp" class="form-text text-muted"
-        >minimum length - 6 characters</small
-      >
     </div>
     <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1" />
@@ -43,14 +41,13 @@ export default {
     password: null
   }),
   methods: {
-    submit() {
-      console.log(`submit!`);
-      this.$store.dispatch("registerUser", {
+    registerUser() {
+      this.$store.dispatch("loginUser", {
         name: this.name,
         email: this.email,
         password: this.password
       });
-      this.$emit("closeLoginForm");
+      this.$emit("closeForm");
     }
   }
 };
