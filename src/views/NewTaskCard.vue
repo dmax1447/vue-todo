@@ -63,7 +63,9 @@ export default {
   }),
   computed: {
     dueDateFormatted() {
-      return moment().add(1, "day").format("YYYY-MM-DD");
+      return moment()
+        .add(1, "day")
+        .format("YYYY-MM-DD");
     }
   },
   methods: {

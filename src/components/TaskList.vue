@@ -1,5 +1,10 @@
 <template>
   <div>
+    <login-form
+      class="p-2 shadow mb-5 bg-white rounded"
+      v-if="isLoginFormShown"
+      @closeLoginForm="isLoginFormShown = false"
+    ></login-form>
     <div class="input-group mb-3">
       <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
         >New task
@@ -10,7 +15,7 @@
         >
       </div>
       <select
-        class="custom-select"
+        class="custom-select mr-1"
         id="inputGroupSelect01"
         v-model="taskStatusFilter"
       >
@@ -19,6 +24,12 @@
         <option value="completed">Completed</option>
         <option value="outdated">Outdated</option>
       </select>
+      <button
+        class="btn btn-sm btn-primary"
+        @click="isLoginFormShown = !isLoginFormShown"
+      >
+        Login
+      </button>
     </div>
     <table class="table mt-2" v-if="getTaskList">
       <thead class="thead-light">
@@ -72,12 +83,16 @@
 
 <script>
 import { mapGetters } from "vuex";
+import LoginForm from "./Login";
 
 export default {
   name: "TaskList",
-
+  components: {
+    LoginForm
+  },
   data: () => ({
-    taskStatusFilter: "all"
+    taskStatusFilter: "all",
+    isLoginFormShown: false
   }),
   computed: {
     ...mapGetters(["getTaskList"]),
