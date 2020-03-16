@@ -20,7 +20,11 @@
         type="password"
         class="form-control"
         id="exampleInputPassword1"
+        minlength="6"
       />
+      <small id="emailHelp" class="form-text text-muted"
+        >minimum length - 6 characters</small
+      >
     </div>
     <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1" />
@@ -41,7 +45,7 @@ export default {
   methods: {
     submit() {
       console.log(`submit!`);
-      this.$store.dispatch("setUser", {
+      this.$store.dispatch("registerUser", {
         name: this.name,
         email: this.email,
         password: this.password

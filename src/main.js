@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import ElementUI from "element-ui";
-import * as firebase from "firebase/app";
+import * as fb from "firebase/app";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/element-ui/lib/theme-chalk/index.css";
@@ -16,7 +16,7 @@ new Vue({
   store,
   render: h => h(App),
   created() {
-    // Your web app's Firebase configuration
+    // Конфиг firebase для приложениея
     const firebaseConfig = {
       apiKey: "AIzaSyAbWOGTSjUMDJVssuayp_6QTRlYoZFFyCc",
       authDomain: "vue-todo-app-8f8f3.firebaseapp.com",
@@ -27,6 +27,6 @@ new Vue({
       appId: "1:599715959455:web:e77f538a612a9e304ec8aa"
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    fb.initializeApp(firebaseConfig);
   }
 }).$mount("#app");
