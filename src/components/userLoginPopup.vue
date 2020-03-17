@@ -41,7 +41,7 @@ export default {
     password: null
   }),
   methods: {
-    registerUser() {
+    loginUser() {
       this.$store.dispatch("loginUser", {
         name: this.name,
         email: this.email,

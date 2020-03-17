@@ -6,7 +6,7 @@
     />
     <user-login-popup
       v-if="isLoginFormShown"
-      @closeForm="isRegistrationFormShown = false"
+      @closeForm="isLoginFormShown = false"
     />
     <div class="input-group mb-3">
       <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
