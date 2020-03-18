@@ -75,7 +75,7 @@ export default {
       this.task.tags = evt.target.value.split(" ");
     },
     handleSubmit() {
-      this.$store.dispatch("handleTaskUpdate", this.task);
+      this.$store.dispatch("updateTask", this.task);
       this.$router.push("/");
     }
   }

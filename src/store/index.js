@@ -1,12 +1,28 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import user from "./user.js";
+import toast from "./toast.js";
+import * as fb from "firebase/app";
+import "firebase/database";
+
+class Task {
+  constructor(task, owner) {
+    this.id = task.id;
+    this.title = task.title;
+    this.description = task.description;
+    this.dueDate = task.dueDate;
+    this.tags = task.tags;
+    this.complited = task.complited;
+    this.owner = owner;
+  }
+}
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    user
+    user,
+    toast
   },
   state: {
     taskList: []
@@ -36,19 +52,39 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    handleTaskSubmit({ commit }, task) {
+    addTask({ commit, dispatch, getters }, payload) {
+      const task = new Task(payload, getters.getUser);
+      console.log(task);
       commit("addTask", task);
-      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+      // localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+      try {
+        fb.database()
+          .ref("tasks")
+          .push(task);
+      } catch {
+        dispatch("showTost", "Error: task not created");
+      }
     },
-    handleTaskUpdate({ commit }, task) {
+    updateTask({ commit }, task) {
       commit("updateTask", task);
-      localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
+      // localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
     },
-    loadApp({ commit }) {
-      const storedTaskList = JSON.parse(
-        localStorage.getItem("taskList") || "[]"
-      );
-      commit("setTaskList", storedTaskList);
+    loadTasks({ commit, dispatch }) {
+      // const storedTaskList = JSON.parse(
+      //   localStorage.getItem("taskList") || "[]"
+      // );
+
+      try {
+        fb.database()
+          .ref("tasks")
+          .once("value")
+          .then(fbVal => {
+            const taskList = fbVal.val();
+            commit("setTaskList", Object.values(taskList));
+          });
+      } catch (error) {
+        dispatch("showTost", `Error: ${error.message}`);
+      }
     },
     handleDeleteTask({ commit }, id) {
       commit("deleteTask", id);

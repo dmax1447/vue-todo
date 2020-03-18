@@ -27,9 +27,27 @@
         <option value="completed">Completed</option>
         <option value="outdated">Outdated</option>
       </select>
-      <button class="btn btn-sm btn-primary ml-2" @click="isRegistrationFormShown = !isRegistrationFormShown">Register</button>
-      <button class="btn btn-sm btn-primary ml-2" @click="isLoginFormShown = !isLoginFormShown">Login</button>
-
+      <button
+        v-if="!isUserLogged"
+        class="btn btn-sm btn-primary ml-2"
+        @click="isRegistrationFormShown = !isRegistrationFormShown"
+      >
+        Register
+      </button>
+      <button
+        v-if="!isUserLogged"
+        class="btn btn-sm btn-primary ml-2"
+        @click="isLoginFormShown = !isLoginFormShown"
+      >
+        Login
+      </button>
+      <button
+        v-if="isUserLogged"
+        class="btn btn-sm btn-primary ml-2"
+        @click="logout"
+      >
+        Logout
+      </button>
     </div>
     <table class="table mt-2" v-if="getTaskList">
       <thead class="thead-light">
@@ -63,7 +81,13 @@
           <p class="task-descriprion-text">{{ task.description }}</p>
         </td>
         <td>{{ new Date(task.dueDate).toLocaleDateString() }}</td>
-        <td>{{ task.tags.join(", ") }}</td>
+        <td>
+          {{
+            task.tags && typeof (task.tags === "Array")
+              ? task.tags.join(" ")
+              : typeof task.tags
+          }}
+        </td>
         <td>
           <router-link
             :to="`task/${task.id}`"
@@ -98,7 +122,7 @@ export default {
     isRegistrationFormShown: false
   }),
   computed: {
-    ...mapGetters(["getTaskList"]),
+    ...mapGetters(["getTaskList", "isUserLogged"]),
     taskListFiltered() {
       return this.getTaskList.filter(item => {
         if (this.taskStatusFilter === "outdated") {
@@ -122,6 +146,9 @@ export default {
     },
     changeTaskStatus(id) {
       this.$store.dispatch("changeTaskStatus", id);
+    },
+    logout() {
+      this.$store.dispatch("logout");
     }
   }
 };

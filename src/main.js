@@ -16,7 +16,7 @@ new Vue({
   store,
   render: h => h(App),
   created() {
-    // Конфиг firebase для приложениея
+    // конфиг firebase для приложениея
     const firebaseConfig = {
       apiKey: "AIzaSyAbWOGTSjUMDJVssuayp_6QTRlYoZFFyCc",
       authDomain: "vue-todo-app-8f8f3.firebaseapp.com",
@@ -26,7 +26,13 @@ new Vue({
       messagingSenderId: "599715959455",
       appId: "1:599715959455:web:e77f538a612a9e304ec8aa"
     };
-    // Initialize Firebase
+    // инициализируем Firebase
     fb.initializeApp(firebaseConfig);
+    // проверяем есть ли данные о залогиненном юзере
+    fb.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoLoginUser", user.uid);
+      }
+    });
   }
 }).$mount("#app");
