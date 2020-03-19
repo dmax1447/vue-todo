@@ -31,10 +31,10 @@ export default {
       fb.auth()
         .createUserWithEmailAndPassword(email, password)
         .then(response => {
-          console.log(response);
           const uid = response.user.uid;
           commit("setUser", new User(uid));
           commit("setUserLogged", true);
+          commit("clearTaskList");
           dispatch("showTost", "user created successfully");
         });
     },
@@ -46,6 +46,7 @@ export default {
           .signInWithEmailAndPassword(email, password)
           .then(() => {
             dispatch("showTost", "user logged in successfully");
+            dispatch("loadTasks");
             commit("setUserLogged", true);
           })
           .catch(error => {
@@ -58,13 +59,22 @@ export default {
           });
       }
     },
-    autoLoginUser({ commit }, userId) {
+    autoLoginUser({ commit, dispatch }, userId) {
       commit("setUser", userId);
       commit("setUserLogged", true);
+      console.log(userId);
+      console.log(fb.auth());
+      dispatch("loadTasks");
+      // fb.auth()
+      //   .signInWithCustomToken(userId)
+      //   .then(() => {
+      //     dispatch("loadTasks");
+      //   });
     },
     logout({ commit }) {
       commit("setUser", null);
       commit("setUserLogged", false);
+      commit("clearTaskList");
       fb.auth().signOut();
     }
   }

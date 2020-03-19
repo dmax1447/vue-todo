@@ -22,6 +22,9 @@ export default {
       setTimeout(() => {
         commit("setTostActive", false);
       }, 5000);
+    },
+    hideTost({ commit }) {
+      commit("setTostActive", false);
     }
   }
 };

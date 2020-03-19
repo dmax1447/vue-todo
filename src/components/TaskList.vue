@@ -9,7 +9,7 @@
       @closeForm="isLoginFormShown = false"
     />
     <div class="input-group mb-3">
-      <router-link to="/new" tag="button" class="btn btn-sm btn-primary mr-1"
+      <router-link to="/new" tag="button" :disabled="!isUserLogged" class="btn btn-sm btn-primary mr-1"
         >New task
       </router-link>
       <div class="input-group-prepend">
@@ -49,7 +49,7 @@
         Logout
       </button>
     </div>
-    <table class="table mt-2" v-if="getTaskList">
+    <table class="table mt-2" v-if="getTaskList.length > 0">
       <thead class="thead-light">
         <tr class="text-left">
           <th>v</th>
@@ -102,6 +102,8 @@
         </td>
       </tr>
     </table>
+    <p v-if="isUserLogged && getTaskList.length === 0"> Task list is empty. Create some tasks!</p>
+    <p v-if="!isUserLogged">Task list not availble, please login or register first!</p>
   </div>
 </template>
 
@@ -142,7 +144,7 @@ export default {
   },
   methods: {
     deleteTask(id) {
-      this.$store.dispatch("handleDeleteTask", id);
+      this.$store.dispatch("deleteTask", id);
     },
     changeTaskStatus(id) {
       this.$store.dispatch("changeTaskStatus", id);

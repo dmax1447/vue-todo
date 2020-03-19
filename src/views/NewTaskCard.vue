@@ -53,7 +53,7 @@ export default {
   name: "NewTask",
   data: () => ({
     task: {
-      id: new Date().valueOf(),
+      id: null,
       title: null,
       description: null,
       dueDate: null,

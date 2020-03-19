@@ -55,7 +55,7 @@ import moment from "moment";
 
 export default {
   mounted() {
-    this.task = this.getTask(parseInt(this.$route.params.id, 10));
+    this.task = this.getTask(this.$route.params.id);
   },
   data: () => ({
     task: null,
