@@ -33,7 +33,8 @@ export default new Vuex.Store({
   },
   getters: {
     getAllTaskList: state => state.taskList,
-    getTaskList: state => state.taskList.filter(task => task.owner === state.user.user),
+    getTaskList: state =>
+      state.taskList.filter(task => task.owner === state.user.user),
     getTask: state => id => state.taskList.find(task => task.id === id)
   },
   mutations: {

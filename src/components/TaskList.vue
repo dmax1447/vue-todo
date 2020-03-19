@@ -9,7 +9,11 @@
       @closeForm="isLoginFormShown = false"
     />
     <div class="input-group mb-3">
-      <router-link to="/new" tag="button" :disabled="!isUserLogged" class="btn btn-sm btn-primary mr-1"
+      <router-link
+        to="/new"
+        tag="button"
+        :disabled="!isUserLogged"
+        class="btn btn-sm btn-primary mr-1"
         >New task
       </router-link>
       <div class="input-group-prepend">
@@ -102,8 +106,13 @@
         </td>
       </tr>
     </table>
-    <p v-if="isUserLogged && getTaskList.length === 0"> Task list is empty. Create some tasks!</p>
-    <p v-if="!isUserLogged">Task list not availble, please login or register first!</p>
+
+    <p v-if="isUserLogged && getTaskList.length === 0">
+      Task list is empty. Create some tasks!
+    </p>
+    <p v-if="!isUserLogged">
+      Task list not availble, please login or register first!
+    </p>
   </div>
 </template>
 
