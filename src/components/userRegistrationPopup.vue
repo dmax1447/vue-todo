@@ -41,7 +41,7 @@ export default {
   }),
   methods: {
     registerUser() {
-      console.log(`submit!`);
+      // console.log(`submit!`);
       this.$store.dispatch("registerUser", {
         name: this.name,
         email: this.email,

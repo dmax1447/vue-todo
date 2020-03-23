@@ -64,7 +64,7 @@ export default new Vuex.Store({
     addTask({ commit, dispatch, getters }, payload) {
       const taskOwner = getters.getUser;
       const task = new Task(payload, taskOwner);
-      console.log(task);
+      // console.log(task);
       commit("addTask", task);
       // localStorage.setItem("taskList", JSON.stringify(this.state.taskList));
       try {
@@ -87,10 +87,10 @@ export default new Vuex.Store({
             dueDate: task.dueDate,
             tags: task.tags,
             title: task.title
-          })
-          .then(response => {
-            console.log("task updated, ", response);
           });
+          // .then(response => {
+          //   console.log("task updated, ", response);
+          // });
       } catch (error) {
         dispatch("showTost", `Error: ${error.message}`);
       }

@@ -62,8 +62,8 @@ export default {
     autoLoginUser({ commit, dispatch }, userId) {
       commit("setUser", userId);
       commit("setUserLogged", true);
-      console.log(userId);
-      console.log(fb.auth());
+      // console.log(userId);
+      // console.log(fb.auth());
       dispatch("loadTasks");
       // fb.auth()
       //   .signInWithCustomToken(userId)
