@@ -53,7 +53,7 @@ export default {
   name: "NewTask",
   data: () => ({
     task: {
-      id: new Date().valueOf(),
+      id: null,
       title: null,
       description: null,
       dueDate: moment()
@@ -63,6 +63,13 @@ export default {
       complited: false
     }
   }),
+  computed: {
+    dueDateFormatted() {
+      return moment()
+        .add(1, "day")
+        .format("YYYY-MM-DD");
+    }
+  },
   methods: {
     handleDate(evt) {
       this.task.dueDate = new Date(evt.target.value).toISOString();
@@ -71,7 +78,7 @@ export default {
       this.task.tags = evt.target.value.split(" ");
     },
     handleSubmit() {
-      this.$store.dispatch("handleTaskSubmit", this.task);
+      this.$store.dispatch("addTask", this.task);
       this.$router.push("/");
     }
   }

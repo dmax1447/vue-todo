@@ -55,7 +55,7 @@ import moment from "moment";
 
 export default {
   mounted() {
-    this.task = this.getTask(parseInt(this.$route.params.id, 10));
+    this.task = this.getTask(this.$route.params.id);
   },
   data: () => ({
     task: null,
@@ -75,7 +75,7 @@ export default {
       this.task.tags = evt.target.value.split(" ");
     },
     handleSubmit() {
-      this.$store.dispatch("handleTaskUpdate", this.task);
+      this.$store.dispatch("updateTask", this.task);
       this.$router.push("/");
     }
   }

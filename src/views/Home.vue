@@ -13,7 +13,7 @@ export default {
     TaskList
   },
   mounted() {
-    this.$store.dispatch("loadApp");
+    this.$store.dispatch("loadTasks");
   }
 };
 </script>
