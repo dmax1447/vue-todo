@@ -55,7 +55,6 @@ export default {
             } else {
               dispatch("showTost", `error in auth: ${error.message}`);
             }
-            console.log(error);
           });
       }
     },
